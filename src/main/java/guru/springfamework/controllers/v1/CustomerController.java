@@ -7,14 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
-@RequestMapping("/api/v1/customers/")
+@RequestMapping("/api/v1/customers")
 public class CustomerController {
 
     private final CustomerService customerService;
@@ -31,8 +29,18 @@ public class CustomerController {
         return new ResponseEntity<CustomerListDto>(new CustomerListDto(allCustomers), HttpStatus.OK);
     }
 
-    @GetMapping("{firstName}")
+    @GetMapping({"/{id}"})
+    public ResponseEntity<CustomerDto> getCustomerById(@PathVariable Long id){
+        return new ResponseEntity<CustomerDto>(customerService.getCustomerById(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/{firstName}")
     public ResponseEntity<CustomerDto> getCustomerByFirstName(@PathVariable String firstName) {
         return new ResponseEntity<CustomerDto>(customerService.getCustomerByFirstName(firstName), HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<CustomerDto> createNewCustomer(@RequestBody CustomerDto customerDto) {
+        return new ResponseEntity<CustomerDto>(customerService.createNewCustomer(customerDto), HttpStatus.CREATED);
     }
 }
