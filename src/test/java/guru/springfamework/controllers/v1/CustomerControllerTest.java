@@ -82,7 +82,7 @@ public class CustomerControllerTest extends AbstractRestControllerTest {
 
         when(customerService.getCustomerByFirstName(anyString())).thenReturn(customer1);
 
-        mockMvc.perform(get("/api/v1/customers/Nikola")
+        mockMvc.perform(get("/api/v1/customers/byName/Nikola")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.firstName", equalTo("Nikola")));
