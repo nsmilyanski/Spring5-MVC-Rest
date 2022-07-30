@@ -34,9 +34,10 @@ public class CustomerController {
         return new ResponseEntity<CustomerDto>(customerService.getCustomerById(id), HttpStatus.OK);
     }
 
-    @GetMapping("/{firstName}")
+    @GetMapping("/byName/{firstName}")
     public ResponseEntity<CustomerDto> getCustomerByFirstName(@PathVariable String firstName) {
-        return new ResponseEntity<CustomerDto>(customerService.getCustomerByFirstName(firstName), HttpStatus.OK);
+        CustomerDto customerByFirstName = customerService.getCustomerByFirstName(firstName);
+        return new ResponseEntity<CustomerDto>(customerByFirstName, HttpStatus.OK);
     }
 
     @PostMapping
