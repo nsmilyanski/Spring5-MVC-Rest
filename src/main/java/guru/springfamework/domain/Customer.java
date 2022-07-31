@@ -1,14 +1,18 @@
 package guru.springfamework.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Data
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Customer {
 
     @Id
@@ -19,5 +23,5 @@ public class Customer {
 
     private String lastName;
 
-    private String customertUrl;
+    private String customerUrl;
 }
