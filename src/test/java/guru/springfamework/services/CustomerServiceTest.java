@@ -3,18 +3,16 @@ package guru.springfamework.services;
 import guru.springfamework.api.v1.model.CustomerDto;
 import guru.springfamework.domain.Customer;
 import guru.springfamework.repositories.CustomerRepository;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.modelmapper.ModelMapper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -85,7 +83,7 @@ public class CustomerServiceTest {
         customer1.setFirstName("Michale");
         customer1.setLastName("Weston");
 
-        when(customerRepository.findById(anyLong())).thenReturn(java.util.Optional.ofNullable(customer1));
+        when(customerRepository.findById(anyLong())).thenReturn(Optional.of(customer1));
 
         //when
         CustomerDto customerDTO = customerService.getCustomerById(1L);
@@ -121,12 +119,12 @@ public class CustomerServiceTest {
         Customer customer = new Customer();
         customer.setFirstName("Nikola");
         customer.setLastName("Smilyanski");
-        customer.setCustomertUrl("/api/v1/customers/");
+        customer.setCustomerUrl("/api/v1/customers/");
 
         Customer customer1 = new Customer();
         customer1.setFirstName("Nikola");
         customer1.setLastName("Smilyanski");
-        customer1.setCustomertUrl("/api/v1/customers/");
+        customer1.setCustomerUrl("/api/v1/customers/");
 
         customerDtoList.add(customer);
         customerDtoList.add(customer1);
