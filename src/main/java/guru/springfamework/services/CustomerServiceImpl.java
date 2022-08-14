@@ -34,6 +34,10 @@ public class CustomerServiceImpl implements CustomerService {
 
         Customer customerByFirstName = customerRepository.findCustomerByFirstName(firstName);
 
+        if (customerByFirstName == null) {
+            throw new ResourceNotFoundException();
+        }
+
         CustomerDto map = modelMapper.map(customerByFirstName, CustomerDto.class);
         map.setCustomerUrl( customerByFirstName.getCustomerUrl());
 
@@ -56,7 +60,7 @@ public class CustomerServiceImpl implements CustomerService {
                     customerDTO.setCustomerUrl("/api/v1/customer/" + id);
                     return customerDTO;
                 })
-                .orElseThrow(RuntimeException::new); //todo implement better exception handling
+                .orElseThrow(ResourceNotFoundException::new);
     }
 
     @Override
@@ -84,7 +88,7 @@ public class CustomerServiceImpl implements CustomerService {
             map.setCustomerUrl("/api/v1/customer/" + id);
 
             return map;
-        }).orElseThrow(RuntimeException::new); //todo implement better exception handling;
+        }).orElseThrow(ResourceNotFoundException::new);
     }
 
     @Override
