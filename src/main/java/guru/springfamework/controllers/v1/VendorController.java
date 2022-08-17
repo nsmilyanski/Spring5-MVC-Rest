@@ -17,7 +17,7 @@ public class VendorController {
 
     private final VendorService vendorService;
 
-    public VendorController(VendorService vendorService) {
+    public VendorController(VendorService vendorService)  {
         this.vendorService = vendorService;
     }
 

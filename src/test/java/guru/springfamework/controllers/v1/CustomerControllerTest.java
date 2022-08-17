@@ -74,6 +74,7 @@ public class CustomerControllerTest extends AbstractRestControllerTest {
         when(customerService.getAllCustomers()).thenReturn(customers);
 
         mockMvc.perform(get(BASE_URL)
+                        .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.customers", hasSize(2)));
@@ -88,6 +89,7 @@ public class CustomerControllerTest extends AbstractRestControllerTest {
         when(customerService.getCustomerByFirstName(anyString())).thenReturn(customer1);
 
         mockMvc.perform(get(BASE_URL + "/byName/Nikola")
+                        .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.firstName", equalTo("Nikola")));
@@ -110,6 +112,7 @@ public class CustomerControllerTest extends AbstractRestControllerTest {
 
         //when/then
         mockMvc.perform(post(BASE_URL)
+                        .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(asJsonString(customer)))
                 .andExpect(status().isCreated())
@@ -132,6 +135,7 @@ public class CustomerControllerTest extends AbstractRestControllerTest {
         when(customerService.patchCustomer(anyLong(), any(CustomerDto.class))).thenReturn(returnDTO);
 
         mockMvc.perform(patch(BASE_URL + "/1")
+                        .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(asJsonString(customer)))
                 .andExpect(status().isOk())
@@ -144,6 +148,7 @@ public class CustomerControllerTest extends AbstractRestControllerTest {
     public void testDeleteCustomer() throws Exception {
 
         mockMvc.perform(delete(BASE_URL + "/1")
+                        .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
@@ -158,6 +163,7 @@ public class CustomerControllerTest extends AbstractRestControllerTest {
         when(customerService.getCustomerById(anyLong())).thenThrow(ResourceNotFoundException.class);
 
         mockMvc.perform(get(CustomerController.BASE_URL + "/222")
+                        .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
